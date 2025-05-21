@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -31,6 +31,24 @@ async function run() {
       .collection("emptyRoom");
 
     //  user post related data in database
+
+    // all data get
+    app.get("/emptyRoom", async (req, res) => {
+      // const cursor = emptyRoomCollection.find();
+      // const result = await cursor.toArray();
+      const result = await emptyRoomCollection.find().toArray();
+      res.send(result);
+    });
+
+    // single data get
+    app.get("/emptyRoom/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await emptyRoomCollection.findOne(query);
+      res.send(result);
+    });
+
+    // data post input field and send data to database
     app.post("/emptyRoom", async (req, res) => {
       const roomFinderData = req.body;
       console.log(roomFinderData);
