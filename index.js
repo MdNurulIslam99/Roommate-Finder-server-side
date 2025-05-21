@@ -26,6 +26,18 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+    const emptyRoomCollection = client
+      .db("emptyRoomDB")
+      .collection("emptyRoom");
+
+    //  user post related data in database
+    app.post("/emptyRoom", async (req, res) => {
+      const roomFinderData = req.body;
+      console.log(roomFinderData);
+      const result = await emptyRoomCollection.insertOne(roomFinderData);
+      res.send(result);
+    });
+    // user related api
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
