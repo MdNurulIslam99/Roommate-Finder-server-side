@@ -60,6 +60,18 @@ async function run() {
       res.send(result);
     });
 
+    // updated data
+    app.put("/emptyRoom/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const updatedEmptyRoom = req.body;
+      const updatedDoc = {
+        $set: updatedEmptyRoom,
+      };
+      const result = await emptyRoomCollection.updateOne(filter, updatedDoc);
+      res.send(result);
+    });
+
     //delete data
 
     app.delete("/emptyRoom/:id", async (req, res) => {
