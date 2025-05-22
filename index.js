@@ -30,6 +30,10 @@ async function run() {
       .db("emptyRoomDB")
       .collection("emptyRoom");
 
+    // userCollection
+
+    const userCollection = client.db("emptyRoomDB").collection("users");
+
     //  user post related data in database
 
     // all data get
@@ -55,7 +59,46 @@ async function run() {
       const result = await emptyRoomCollection.insertOne(roomFinderData);
       res.send(result);
     });
-    // user related api
+
+    //delete data
+
+    app.delete("/emptyRoom/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await emptyRoomCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // email
+    // app.get("/emptyRoom", async (req, res) => {
+    //   const { email } = req.query;
+    //   const query = email ? { userEmail: email } : {}; // ✅ CHANGED: query by userEmail
+    //   const data = await emptyRoomCollection.find(query).toArray();
+    //   res.send(data);
+    // });
+
+    // user related Apis
+
+    app.get("/users", async (req, res) => {
+      // const cursor = emptyRoomCollection.find();
+      // const result = await cursor.toArray();
+      const result = await userCollection.find().toArray();
+      res.send(result);
+    });
+
+    // single data get
+    app.get("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await userCollection.findOne(query);
+      res.send(result);
+    });
+
+    app.post("/users", async (req, res) => {
+      const userProfile = req.body;
+      const result = await userCollection.insertOne(userProfile);
+      res.send(result);
+    });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
