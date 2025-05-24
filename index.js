@@ -72,6 +72,44 @@ async function run() {
       res.send(result);
     });
 
+    // updated a single data
+
+    // app.patch("/emptyRoom/:id", async (req, res) => {
+    //   const { like } = req.body.id;
+    //   const filter = { like: like };
+    //   const updatedDoc = {
+    //     $set: {
+    //       like: like,
+    //     },
+    //   };
+    //   const result = await emptyRoomCollection.updateOne(filter, updatedDoc);
+    //   res.send(result);
+    // });
+
+    // app.patch("/emptyRoom/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const { like } = req.body;
+
+    //   const result = await emptyRoomCollection.updateOne(
+    //     { _id: new ObjectId(id) },
+    //     { $set: { like: like } }
+    //   );
+
+    //   res.json(result);
+    // });
+
+    app.patch("/emptyRoom/:id", async (req, res) => {
+      const id = req.params.id;
+      const { like } = req.body;
+
+      const result = await emptyRoomCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { like: like } }
+      );
+
+      res.send(result);
+    });
+
     //delete data
 
     app.delete("/emptyRoom/:id", async (req, res) => {
