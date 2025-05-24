@@ -86,18 +86,6 @@ async function run() {
     //   res.send(result);
     // });
 
-    // app.patch("/emptyRoom/:id", async (req, res) => {
-    //   const id = req.params.id;
-    //   const { like } = req.body;
-
-    //   const result = await emptyRoomCollection.updateOne(
-    //     { _id: new ObjectId(id) },
-    //     { $set: { like: like } }
-    //   );
-
-    //   res.json(result);
-    // });
-
     app.patch("/emptyRoom/:id", async (req, res) => {
       const id = req.params.id;
       const { like } = req.body;
@@ -122,7 +110,7 @@ async function run() {
     // email
     // app.get("/emptyRoom", async (req, res) => {
     //   const { email } = req.query;
-    //   const query = email ? { userEmail: email } : {}; // ✅ CHANGED: query by userEmail
+    //   const query = email ? { userEmail: email } : {};
     //   const data = await emptyRoomCollection.find(query).toArray();
     //   res.send(data);
     // });
