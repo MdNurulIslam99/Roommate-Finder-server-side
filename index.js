@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+
     const emptyRoomCollection = client
       .db("emptyRoomDB")
       .collection("emptyRoom");
@@ -98,7 +98,7 @@ async function run() {
       res.send(result);
     });
 
-    //delete data
+    //delete data from database
 
     app.delete("/emptyRoom/:id", async (req, res) => {
       const id = req.params.id;
@@ -124,7 +124,7 @@ async function run() {
       res.send(result);
     });
 
-    // single data get
+    // single data get from database
     app.get("/users/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
@@ -139,7 +139,7 @@ async function run() {
     });
 
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
